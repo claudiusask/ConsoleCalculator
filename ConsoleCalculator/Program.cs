@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using CalculatorLib;
-using HistoryName;
 using Newtonsoft.Json;
 
 namespace ConsoleCalculator
@@ -15,8 +14,7 @@ namespace ConsoleCalculator
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
-            CalculatorProgram calculatorProgram = new CalculatorProgram();
-            History history = new History();            
+            //CalculatorProgram calculatorProgram = new CalculatorProgram();
 
             while (!endApp)
             {
@@ -25,23 +23,12 @@ namespace ConsoleCalculator
                 string numInput2 = "";
                 double result = 0;
                 string histResult;
-
-                Console.WriteLine("What would you like to do?");
-                Console.WriteLine("\tv - View History");
-                Console.WriteLine("\to - Calculator");
-                Console.WriteLine("\te - Exit");
-                Console.Write("Your option?");
+                Options.
+                                DisplayMainOptions();
                 string opt = Console.ReadLine();
                 if (opt == "v")
                 {
-                    // Calling the History Method
-                    calculatorProgram.EndHistory();
-                    Console.Write("Do you want to clear the history? Press 'y' to clear the history:");
-                    string clearHistory = Console.ReadLine();
-                    if (clearHistory == "y")
-                    {
-                        calculatorProgram.ClearHistory();
-                    }
+                    ViewHistory(calculatorProgram);
                 }
                 else if (opt == "e")
                 {
@@ -61,7 +48,7 @@ namespace ConsoleCalculator
                     //history.GetListed(numInput1);
                     //history.Validating();
 
-                    List<double> calledList = calculatorProgram.GetList();
+                    List<double> calledList = calculatorProgram.GetHistory();
 
                     // using history input                  
                     if (numInput1 == "h")
@@ -103,19 +90,14 @@ namespace ConsoleCalculator
                         Console.Write("This is not valid input. Please enter an integer value: ");
                         numInput2 = Console.ReadLine();
                     }
-                    //double cleanNum1 = 0;
-                    //double cleanNum2 = 0;
-                    //userNumberInput.CalValidNumber();
-                    //userNumberInput.CleanNumbers();
 
-                    // Ask the user to choose an operator.
-                    Console.WriteLine("Choose an operator from the following list:");
-                    Console.WriteLine("\ta - Add");
-                    Console.WriteLine("\ts - Subtract");
-                    Console.WriteLine("\tm - Multiply");
-                    Console.WriteLine("\td - Divide");
-                    Console.WriteLine("\tr - Square root - only 1st input is valid");
-                    Console.Write("Your option? ");
+                    Options.
+                                        //double cleanNum1 = 0;
+                                        //double cleanNum2 = 0;
+                                        //userNumberInput.CalValidNumber();
+                                        //userNumberInput.CleanNumbers();
+
+                                        DisplayOperatorOptions();
 
                     string op = Console.ReadLine();
 
@@ -145,14 +127,28 @@ namespace ConsoleCalculator
                     Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
                     if (Console.ReadLine() == "n")
                     {
-                        endApp = true;                        
+                        endApp = true;
                     }
                     Console.WriteLine("\n"); // Friendly linespacing.
                 }
-                
+
             }
             calculatorProgram.Finish();
             return;
+        }
+
+
+
+        private static void ViewHistory(CalculatorProgram calculatorProgram)
+        {
+            // Calling the History Method
+            calculatorProgram.EndHistory();
+            Console.Write("Do you want to clear the history? Press 'y' to clear the history:");
+            string clearHistory = Console.ReadLine();
+            if (clearHistory == "y")
+            {
+                calculatorProgram.ClearHistory();
+            }
         }
     }
 }

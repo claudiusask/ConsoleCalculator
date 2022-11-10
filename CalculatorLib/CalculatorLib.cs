@@ -10,7 +10,7 @@ namespace CalculatorLib
         private int _calUsageCount = 0;
         //private string _histNum;
         private double _returnSelectHist;
-        List<double> calResults = new List<double>();    
+        History history = new History();
 
         public CalculatorProgram()
         {
@@ -39,11 +39,12 @@ namespace CalculatorLib
                     break;
                 case "a":
                     result = num1 + num2;
-                    calResults.Add(result);
+                    //calResults.Add(result);
                     //writer.WriteValue("Add");
                     break;
                 case "s":
                     result = num1 - num2;
+                    history.Add(result);
                     calResults.Add(result);
                     //writer.WriteValue("Subtract");
                     break;
@@ -101,12 +102,14 @@ namespace CalculatorLib
         }
         public void ClearHistory()
         {
-            calResults.Clear();
+            history.Clear();
         }
-        public List<double> GetList()
+
+        public List<double> GetHistory()
         {
-            return calResults;
+            return history.Memory;
         }
+
         public void PrintList()
         {
             int i = 1;
